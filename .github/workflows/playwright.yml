@@ -1,26 +1,29 @@
 name: Execução de Testes End-to-End com IA
 on:
-    push:
-        branches: [ "main", "master" ]
+  push:
+    branches: [ "main", "master" ]
+
 jobs:
-    e2e-tests:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Baixar o código do repositório
-              uses: actions/checkout@v4
-            - name: Configurar o Python no ambiente
-              uses: actions/setup-python@v5
-              with:
-                python-version: "3.11"
-            - name: Instalar bibliotecas do projeto
-              run: |
-                python -m pip install --upgrade pip
-                pip install pytest playwright google-genai python-dotenv
-            - name: Instalar navegadores do Playwright
-              run: playwright install --with-deps
-            - name: Executar os testes automatizados
-              env:
-                GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-              run: pytest test_ai.py
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
 
+      - name: Configurar o Python no ambiente
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
+      - name: Instalar bibliotecas do projeto
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-playwright google-genai python-dotenv
+
+      - name: Instalar navegadores do Playwright
+        run: playwright install --with-deps
+
+      - name: Executar os testes automatizados
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: pytest test_ai.py
