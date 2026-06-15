@@ -1,0 +1,9 @@
+# Arquivos de credenciais e variáveis de ambiente
+.env
+
+# Pastas de cache do Python e do Pytest
+__pycache__/
+.pytest_cache/
+
+# Ambiente virtual local
+venv/
